@@ -1,11 +1,9 @@
-package com.jakey.motivateme;
+package com.jakey.motivateme.notifications;
 
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-
-import com.jakey.motivateme.AlarmService;
 
 public class AlarmReceiver extends BroadcastReceiver {
 

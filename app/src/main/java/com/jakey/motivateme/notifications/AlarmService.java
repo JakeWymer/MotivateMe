@@ -1,4 +1,4 @@
-package com.jakey.motivateme;
+package com.jakey.motivateme.notifications;
 
 
 import android.app.Notification;
@@ -8,13 +8,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.jakey.motivateme.Signin;
-
-
-/**
- * Created by jakey on 12/19/14.
- */
-
+import com.jakey.motivateme.Main;
 
 public class AlarmService extends Service {
 
@@ -25,7 +19,7 @@ public class AlarmService extends Service {
     {
 
         mManager = (NotificationManager) this.getApplicationContext().getSystemService(this.getApplicationContext().NOTIFICATION_SERVICE);
-        Intent intent1 = new Intent(this.getApplicationContext(),Signin.class);
+        Intent intent1 = new Intent(this.getApplicationContext(),Main.class);
 
         Notification notification = new Notification(com.jakey.motivateme.R.drawable.ic_launcher,"Two weeks till goal!", System.currentTimeMillis());
         intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP| Intent.FLAG_ACTIVITY_CLEAR_TOP);

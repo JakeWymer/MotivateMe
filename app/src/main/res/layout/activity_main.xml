@@ -6,33 +6,87 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity" >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-    <Button
-        android:background="@drawable/style_button"
-        android:id="@+id/todayslogbtn"
-        android:layout_width="fill_parent"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/weight_input_label"
+            android:id="@+id/weighttxt" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/weightinput"
+            android:clickable="true"
+            android:inputType="number"
+            android:singleLine="true"
+            android:enabled="true"
+            android:width="80sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/diet_input_label"
+            android:id="@+id/diettxt"
+            android:paddingTop="15sp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupDiet"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/diet_healthy"
+                android:id="@+id/diet_healthy_btn"
+                android:checked="false" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/diet_average"
+                android:id="@+id/diet_average_btn"
+                android:checked="false" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/diet_poor"
+                android:id="@+id/diet_poor_btn"
+                android:checked="false" />
+
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/workout_input_label"
+            android:id="@+id/WOtxt"
+            android:paddingTop="15sp" />
+
+        <ToggleButton
+            android:layout_width="100sp"
+            android:layout_height="50sp"
+            android:id="@+id/workoutToggle"
+            android:textOn="Yes"
+            android:textOff="No" />
+    </LinearLayout>
+
+    <include
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Today's Log"
-        style="@style/button_text"
-        android:paddingTop="75dp"
-        android:layout_above="@+id/mygoalsbtn"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="TodayLog"/>
-
-    <Button
-        android:background="@drawable/style_button"
-        android:id="@+id/mygoalsbtn"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="My Goals"
-        style="@style/button_text"
-        android:paddingTop="75dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="MyGoals"/>
+        layout="@layout/nav"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

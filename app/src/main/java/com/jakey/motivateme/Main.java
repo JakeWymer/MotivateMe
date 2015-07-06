@@ -1,55 +1,89 @@
 package com.jakey.motivateme;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.ToggleButton;
 
+import com.jakey.motivateme.models.LogRecord;
 
-public class Main extends Activity {
+import java.util.Date;
 
+public class Main extends NavActivity {
 
+    LogRecord logRecord = LogRecord.findByDate(new Date());
+
+    EditText weightEditText;
+    ToggleButton workoutToggle;
+    RadioGroup dietRadioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.jakey.motivateme.R.layout.activity_main);
 
-    }
+        weightEditText = (EditText) findViewById(R.id.weightinput);
+        dietRadioGroup = (RadioGroup) findViewById(R.id.radioGroupDiet);
+        workoutToggle = (ToggleButton) findViewById(R.id.workoutToggle);
 
-    public void TodayLog(View view)
-    {
-        Intent toTodaysStats = new Intent(this, LogToday.class);
-        startActivity(toTodaysStats);
-    }
-
-    public void MyGoals(View view){
-        Intent toGoals = new Intent(this, Goals.class);
-        startActivity(toGoals);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(com.jakey.motivateme.R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == com.jakey.motivateme.R.id.action_settings) {
-            return true;
+        // update values if today's record already exists
+        if (logRecord != null) {
+            weightEditText.setText(String.valueOf(logRecord.getWeight()));
+            workoutToggle.setChecked(logRecord.getWorkout());
+            if (logRecord.getDiet() != null) {
+                if (logRecord.getDiet().equals(getString(R.string.diet_healthy))) {
+                    dietRadioGroup.check(R.id.diet_healthy_btn);
+                } else if (logRecord.getDiet().equals(getString(R.string.diet_average))) {
+                    dietRadioGroup.check(R.id.diet_average_btn);
+                } else if (logRecord.getDiet().equals(getString(R.string.diet_poor))) {
+                    dietRadioGroup.check(R.id.diet_poor_btn);
+                }
+            }
         }
-        return super.onOptionsItemSelected(item);
+
+        // add listeners for changes to today's log
+        weightEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                saveStats();
+            }
+        });
+
+        workoutToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                saveStats();
+            }
+        });
+
+        dietRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                saveStats();
+            }
+        });
     }
 
-
-
-
+    public void saveStats() {
+        RadioButton radioButtonDiet = (RadioButton) findViewById(dietRadioGroup.getCheckedRadioButtonId());
+        String dietTxt = radioButtonDiet == null ? null : (String) radioButtonDiet.getText();
+        String weightString = weightEditText.getText().toString();
+        Integer weight = weightString.equals("") ? null : Integer.parseInt(weightString);
+        logRecord = new LogRecord(weight, dietTxt, workoutToggle.isChecked());
+        logRecord.saveOrUpdate();
+    }
 }
