@@ -34,7 +34,7 @@
         android:id="@+id/button"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:onClick="startAddGoal"
+        android:onClick="startAddEvent"
         android:nestedScrollingEnabled="true" />
 
 </RelativeLayout>
