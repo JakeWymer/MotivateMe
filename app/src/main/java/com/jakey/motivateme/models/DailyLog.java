@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class LogRecord extends SugarRecord<LogRecord> {
+public class DailyLog extends SugarRecord<DailyLog> {
     static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
     private String date = DATE_FORMAT.format(new Date());
@@ -15,28 +15,28 @@ public class LogRecord extends SugarRecord<LogRecord> {
     private String diet;
     private Boolean workout;
 
-    public LogRecord() {
+    public DailyLog() {
     }
 
-    public LogRecord(Integer weight, String diet, Boolean workout) {
+    public DailyLog(Integer weight, String diet, Boolean workout) {
         this.weight = weight;
         this.diet = diet;
         this.workout = workout;
     }
 
-    public static LogRecord findByDate(Date date) {
-        List<LogRecord> logRecords = LogRecord.find(LogRecord.class, "date = ?", DATE_FORMAT.format(date));
-        if (logRecords.size() > 0) {
-            return logRecords.get(0);
+    public static DailyLog findByDate(Date date) {
+        List<DailyLog> dailyLogs = DailyLog.find(DailyLog.class, "date = ?", DATE_FORMAT.format(date));
+        if (dailyLogs.size() > 0) {
+            return dailyLogs.get(0);
         } else {
             return null;
         }
     }
 
     public void saveOrUpdate() {
-        List<LogRecord> logRecords = LogRecord.find(LogRecord.class, "date = ?", this.date);
-        if (logRecords.size() > 0) {
-            this.setId(logRecords.get(0).getId());
+        List<DailyLog> dailyLogs = DailyLog.find(DailyLog.class, "date = ?", this.date);
+        if (dailyLogs.size() > 0) {
+            this.setId(dailyLogs.get(0).getId());
         }
         this.save();
     }
@@ -71,15 +71,5 @@ public class LogRecord extends SugarRecord<LogRecord> {
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    @Override
-    public String toString() {
-        return "LogRecord{" +
-                "date='" + date + '\'' +
-                ", weight=" + weight +
-                ", diet='" + diet + '\'' +
-                ", workout=" + workout +
-                '}';
     }
 }

@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.jakey.motivateme.models.LogRecord;
+import com.jakey.motivateme.models.DailyLog;
 
 import java.util.ArrayList;
 
@@ -20,20 +20,20 @@ public class Stats extends NavActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.jakey.motivateme.R.layout.activity_stats);
-        ArrayList<LogRecord> logRecords = (ArrayList<LogRecord>) LogRecord.listAll(LogRecord.class);
+        ArrayList<DailyLog> dailyLogs = (ArrayList<DailyLog>) DailyLog.listAll(DailyLog.class);
         ListView myList = (ListView) findViewById(com.jakey.motivateme.R.id.listView_log);
-        myList.setAdapter(new StatsAdapter(this, logRecords));
+        myList.setAdapter(new StatsAdapter(this, dailyLogs));
     }
 
-    public class StatsAdapter extends ArrayAdapter<LogRecord> {
-        public StatsAdapter(Context context, ArrayList<LogRecord> events) {
+    public class StatsAdapter extends ArrayAdapter<DailyLog> {
+        public StatsAdapter(Context context, ArrayList<DailyLog> events) {
             super(context, 0, events);
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // Get the data item for this position
-            LogRecord log = getItem(position);
+            DailyLog log = getItem(position);
 
             // Check if an existing view is being reused, otherwise inflate the view
             if (convertView == null) {

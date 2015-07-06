@@ -9,13 +9,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ToggleButton;
 
-import com.jakey.motivateme.models.LogRecord;
+import com.jakey.motivateme.models.DailyLog;
 
 import java.util.Date;
 
 public class Main extends NavActivity {
 
-    LogRecord logRecord = LogRecord.findByDate(new Date());
+    DailyLog dailyLog = DailyLog.findByDate(new Date());
 
     EditText weightEditText;
     ToggleButton workoutToggle;
@@ -31,15 +31,15 @@ public class Main extends NavActivity {
         workoutToggle = (ToggleButton) findViewById(R.id.workoutToggle);
 
         // update values if today's record already exists
-        if (logRecord != null) {
-            weightEditText.setText(String.valueOf(logRecord.getWeight()));
-            workoutToggle.setChecked(logRecord.getWorkout());
-            if (logRecord.getDiet() != null) {
-                if (logRecord.getDiet().equals(getString(R.string.diet_healthy))) {
+        if (dailyLog != null) {
+            weightEditText.setText(String.valueOf(dailyLog.getWeight()));
+            workoutToggle.setChecked(dailyLog.getWorkout());
+            if (dailyLog.getDiet() != null) {
+                if (dailyLog.getDiet().equals(getString(R.string.diet_healthy))) {
                     dietRadioGroup.check(R.id.diet_healthy_btn);
-                } else if (logRecord.getDiet().equals(getString(R.string.diet_average))) {
+                } else if (dailyLog.getDiet().equals(getString(R.string.diet_average))) {
                     dietRadioGroup.check(R.id.diet_average_btn);
-                } else if (logRecord.getDiet().equals(getString(R.string.diet_poor))) {
+                } else if (dailyLog.getDiet().equals(getString(R.string.diet_poor))) {
                     dietRadioGroup.check(R.id.diet_poor_btn);
                 }
             }
@@ -83,7 +83,7 @@ public class Main extends NavActivity {
         String dietTxt = radioButtonDiet == null ? null : (String) radioButtonDiet.getText();
         String weightString = weightEditText.getText().toString();
         Integer weight = weightString.equals("") ? null : Integer.parseInt(weightString);
-        logRecord = new LogRecord(weight, dietTxt, workoutToggle.isChecked());
-        logRecord.saveOrUpdate();
+        dailyLog = new DailyLog(weight, dietTxt, workoutToggle.isChecked());
+        dailyLog.saveOrUpdate();
     }
 }
