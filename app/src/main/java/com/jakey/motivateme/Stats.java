@@ -1,6 +1,7 @@
 package com.jakey.motivateme;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,5 +54,11 @@ public class Stats extends NavActivity {
 
             return convertView;
         }
+    }
+
+    public void toGraphs(View view){
+
+        Intent i = new Intent(this, Graphs.class);
+        startActivity(i);
     }
 }

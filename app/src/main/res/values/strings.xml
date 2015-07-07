@@ -12,4 +12,8 @@
     <string name="diet_input_label">How healthy did you eat?</string>
     <string name="weight_input_label">How much do you weigh today?</string>
     <string name="title_activity_add_goal">AddGoal</string>
+    <string name="title_activity_graphs">Graphs</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>

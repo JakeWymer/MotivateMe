@@ -31,12 +31,10 @@
             android:name=".Events"
             android:label="@string/title_activity_goals" >
         </activity>
-
         <activity
             android:name=".Stats"
             android:label="@string/title_activity_log_today" >
         </activity>
-
         <activity
             android:name=".AddEvent"
             android:label="@string/title_activity_add_goal" >
@@ -48,6 +46,10 @@
 
         <receiver android:name=".notifications.AlarmReceiver" />
 
+        <activity
+            android:name=".Graphs"
+            android:label="@string/title_activity_graphs" >
+        </activity>
     </application>
 
 </manifest>
