@@ -163,11 +163,7 @@ public class Graphs extends ActionBarActivity {
         DataPoint [] values =  new DataPoint [points];
         List<DailyLog> logs = (dailyLogs.subList(0, end));
         for(int i = 0; i<logs.size(); i+=7){
-            double weight =0;
-            for(int j = 0; j<7; j++){
-                weight+=dailyLogs.get(i+j).getWeight();
-            }
-            weight/=7;
+            double weight =logs.get(i).getWeight();
             int yVal = ((int) weight);
             DataPoint v = new DataPoint(xVal,yVal);
             values[vCount] = v;
