@@ -67,8 +67,16 @@ public class Graphs extends ActionBarActivity {
         wGraph.getViewport().setScrollable(true);
 
         wGraph.getViewport().setXAxisBoundsManual(true);
-        wGraph.getViewport().setMinX(points - 4);
-        wGraph.getViewport().setMaxX(points);
+
+        if(points-4<1){
+            wGraph.getViewport().setMinX(1);
+            wGraph.getViewport().setMaxX(points);
+        }
+        else{
+            wGraph.getViewport().setMinX(points-4);
+            wGraph.getViewport().setMaxX(points);
+        }
+
 
        /*</Weight Graph>*/
 
@@ -88,8 +96,15 @@ public class Graphs extends ActionBarActivity {
         }
 
         dWGraph.getViewport().setXAxisBoundsManual(true);
-        dWGraph.getViewport().setMinX(points - 4);
-        dWGraph.getViewport().setMaxX(points);
+
+        if(points-4<1){
+            dWGraph.getViewport().setMinX(1);
+            dWGraph.getViewport().setMaxX(points);
+        }
+        else{
+            dWGraph.getViewport().setMinX(points-4);
+            dWGraph.getViewport().setMaxX(points);
+        }
 
         dWGraph.getViewport().setYAxisBoundsManual(true);
         dWGraph.getViewport().setMinY(0);
