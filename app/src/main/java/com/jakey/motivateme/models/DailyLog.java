@@ -18,6 +18,7 @@ public class DailyLog extends SugarRecord<DailyLog> {
     public DailyLog() {
     }
 
+
     public DailyLog(Integer weight, String diet, Boolean workout) {
         this.weight = weight;
         this.diet = diet;

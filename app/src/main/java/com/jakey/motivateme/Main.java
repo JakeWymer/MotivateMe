@@ -86,4 +86,5 @@ public class Main extends NavActivity {
         dailyLog = new DailyLog(weight, dietTxt, workoutToggle.isChecked());
         dailyLog.saveOrUpdate();
     }
+
 }

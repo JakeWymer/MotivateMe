@@ -16,6 +16,8 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Graphs extends ActionBarActivity {
 
@@ -26,10 +28,7 @@ public class Graphs extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graphs);
-
-
-        System.out.println(dailyLogs.get(0).getDiet());
-
+        getDiet1();
         GraphView wGraph = (GraphView) findViewById(R.id.weightGraph);
         GraphView dWGraph = (GraphView) findViewById(R.id.dietWorkGraph);
 
@@ -43,25 +42,35 @@ public class Graphs extends ActionBarActivity {
                 });
                 wGraph.addSeries(series);
                 series.setColor(Color.RED);
-                wGraph.setTitle("Weight");
+                wGraph.setTitle("Weight(Days)");
 
             }
             else if(dailyLogs.size()<14){
                 LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(getWeight1());
                 wGraph.addSeries(series);
                 series.setColor(Color.RED);
-                wGraph.setTitle("Weight");
+                wGraph.setTitle("Weight(Days)");
 
             }
             else{
                 LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(getWeight2());
                 wGraph.addSeries(series);
                 series.setColor(Color.RED);
-                wGraph.setTitle("Weight");
+                wGraph.setTitle("Weight(Weeks)");
 
             }
 
-        /*</Weight Graph>*/
+
+        double numOfPoints = dailyLogs.size()/7;
+        int points = ((int) numOfPoints);
+
+        wGraph.getViewport().setScrollable(true);
+
+        wGraph.getViewport().setXAxisBoundsManual(true);
+        wGraph.getViewport().setMinX(points - 4);
+        wGraph.getViewport().setMaxX(points);
+
+       /*</Weight Graph>*/
 
         /*<dWGraph>*/
         if(dailyLogs.size()>=7) {
@@ -77,6 +86,16 @@ public class Graphs extends ActionBarActivity {
             series2.setTitle("Workout %");
 
         }
+
+        dWGraph.getViewport().setXAxisBoundsManual(true);
+        dWGraph.getViewport().setMinX(points - 4);
+        dWGraph.getViewport().setMaxX(points);
+
+        dWGraph.getViewport().setYAxisBoundsManual(true);
+        dWGraph.getViewport().setMinY(0);
+        dWGraph.getViewport().setMaxY(100);
+
+        dWGraph.getViewport().setScrollable(true);
 
         dWGraph.setTitle("Diet and Workout % Per Week");
         dWGraph.getLegendRenderer().setVisible(true);
@@ -121,59 +140,87 @@ public class Graphs extends ActionBarActivity {
     }
 
     private DataPoint[] getWeight2(){
-        DataPoint [] values =  new DataPoint [dailyLogs.size()];
-        int numOfPoints = dailyLogs.size()/7;
-        int pointCount = 0;
-        while(pointCount<numOfPoints){
-            for(int i=0;i<dailyLogs.size(); i+=7){
-                DataPoint v = new DataPoint(pointCount+1,dailyLogs.get(i).getWeight());
-                values[i] = v;
+        double numOfPoints = dailyLogs.size()/7;
+        int points = ((int)numOfPoints);
+        int end = points*7;
+        int xVal = 1;
+        int vCount = 0;
+        DataPoint [] values =  new DataPoint [points];
+        List<DailyLog> logs = (dailyLogs.subList(0, end));
+        for(int i = 0; i<logs.size(); i+=7){
+            double weight =0;
+            for(int j = 0; j<7; j++){
+                weight+=dailyLogs.get(i+j).getWeight();
             }
-            pointCount++;
+            weight/=7;
+            int yVal = ((int) weight);
+            DataPoint v = new DataPoint(xVal,yVal);
+            values[vCount] = v;
+
+            vCount++;
+            xVal++;
+
         }
+
         return values;
+
     }
 
+
     private DataPoint [] getDiet1(){
-        DataPoint [] values = new DataPoint [dailyLogs.size()];
-        int numOfPoints = dailyLogs.size()/7;
-        int pointCount = 0;
-        while(pointCount<numOfPoints){
-            for(int i=0;i<dailyLogs.size(); i+=7){
-                int healthCount = 0;
-                for(int j=0; j<7; j++){
-                    if(dailyLogs.get(j).getDiet() == "Healthy"){
-                        healthCount++;
-                    }
+        double numOfPoints = dailyLogs.size()/7;
+        int points = ((int)numOfPoints);
+        int end = points*7;
+        int xVal = 1;
+        int vCount = 0;
+        DataPoint [] values =  new DataPoint [points];
+        List<DailyLog> logs = (dailyLogs.subList(0, end));
+        for(int i = 0; i<logs.size(); i+=7){
+            double hCount = 0;
+            for(int j = 0; j<7; j++){
+                if(logs.get(i+j).getDiet().equals("Healthy")){
+                    hCount++;
                 }
-                healthCount = (healthCount/7)*100;
-                DataPoint v = new DataPoint(pointCount+1, healthCount);
-                values[i] = v;
+
             }
-            pointCount++;
+            hCount = (hCount/7)*100;
+            DataPoint v = new DataPoint(xVal,hCount);
+            values[vCount] = v;
+            vCount++;
+            xVal++;
+
         }
+
         return values;
+
     }
 
     private DataPoint [] getWorkout1(){
-        DataPoint [] values = new DataPoint [dailyLogs.size()];
-        int numOfPoints = dailyLogs.size()/7;
-        int pointCount = 0;
-        while(pointCount<numOfPoints){
-            for(int i=0;i<dailyLogs.size(); i+=7){
-                int healthCount = 0;
-                for(int j=0; j<7; j++){
-                    if(dailyLogs.get(j).getWorkout()){
-                        healthCount++;
-                    }
+        double numOfPoints = dailyLogs.size()/7;
+        int points = ((int)numOfPoints);
+        int end = points*7;
+        int xVal = 1;
+        int vCount = 0;
+        DataPoint [] values =  new DataPoint [points];
+        List<DailyLog> logs = (dailyLogs.subList(0, end));
+        for(int i = 0; i<logs.size(); i+=7){
+            double hCount = 0;
+            for(int j = 0; j<7; j++){
+                if(logs.get(i+j).getWorkout().equals(true)){
+                    hCount++;
                 }
-                healthCount = (healthCount/7)*100;
-                DataPoint v = new DataPoint(pointCount+1, healthCount);
-                values[i] = v;
+
             }
-            pointCount++;
+            hCount = (hCount/7)*100;
+            DataPoint v = new DataPoint(xVal,hCount);
+            values[vCount] = v;
+            vCount++;
+            xVal++;
+
         }
+
         return values;
+
     }
 
     public void toMain(View view){
