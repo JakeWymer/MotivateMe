@@ -42,6 +42,8 @@ public class Graphs extends ActionBarActivity {
                 });
                 wGraph.addSeries(series);
                 series.setColor(Color.RED);
+                series.setDrawDataPoints(true);
+                series.setDataPointsRadius(5f);
                 wGraph.setTitle("Weight(Days)");
 
             }
@@ -49,15 +51,31 @@ public class Graphs extends ActionBarActivity {
                 LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(getWeight1());
                 wGraph.addSeries(series);
                 series.setColor(Color.RED);
+                series.setDrawDataPoints(true);
+                series.setDataPointsRadius(5f);
                 wGraph.setTitle("Weight(Days)");
-
+                double numOfPoints = dailyLogs.size();
+                System.out.println(dailyLogs.size());
+                wGraph.getViewport().setMinX(1);
+                wGraph.getViewport().setMaxX(numOfPoints);
             }
             else{
                 LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(getWeight2());
                 wGraph.addSeries(series);
                 series.setColor(Color.RED);
+                series.setDrawDataPoints(true);
+                series.setDataPointsRadius(5f);
                 wGraph.setTitle("Weight(Weeks)");
-
+                double numOfPoints = dailyLogs.size()/7;
+                int points = ((int) numOfPoints);
+                if(points>4){
+                    wGraph.getViewport().setMinX(points -4);
+                    wGraph.getViewport().setMaxX(points);
+                }
+                else{
+                    wGraph.getViewport().setMinX(1);
+                    wGraph.getViewport().setMaxX(points);
+                }
             }
 
 
@@ -66,16 +84,10 @@ public class Graphs extends ActionBarActivity {
 
         wGraph.getViewport().setScrollable(true);
 
+
         wGraph.getViewport().setXAxisBoundsManual(true);
 
-        if(points-4<1){
-            wGraph.getViewport().setMinX(1);
-            wGraph.getViewport().setMaxX(points);
-        }
-        else{
-            wGraph.getViewport().setMinX(points-4);
-            wGraph.getViewport().setMaxX(points);
-        }
+
 
 
        /*</Weight Graph>*/
@@ -85,10 +97,17 @@ public class Graphs extends ActionBarActivity {
             LineGraphSeries<DataPoint> series1 = new LineGraphSeries<DataPoint>(getDiet1());
             dWGraph.addSeries(series1);
             series1.setColor(Color.GREEN);
+            series1.setDrawDataPoints(true);
+            series1.setDataPointsRadius(5f);
+
 
             LineGraphSeries<DataPoint> series2 = new LineGraphSeries<DataPoint>(getWorkout1());
             dWGraph.addSeries(series2);
             series2.setColor(Color.YELLOW);
+            series2.setDrawDataPoints(true);
+            series2.setDataPointsRadius(5f);
+
+
 
             series1.setTitle("Healthy Diet %");
             series2.setTitle("Workout %");
@@ -96,6 +115,7 @@ public class Graphs extends ActionBarActivity {
         }
 
         dWGraph.getViewport().setXAxisBoundsManual(true);
+
 
         if(points-4<1){
             dWGraph.getViewport().setMinX(1);
@@ -148,7 +168,7 @@ public class Graphs extends ActionBarActivity {
         DataPoint [] values =  new DataPoint [dailyLogs.size()];
 
         for(int i=0;i<dailyLogs.size(); i++){
-            DataPoint v = new DataPoint(i,dailyLogs.get(i).getWeight());
+            DataPoint v = new DataPoint(i+1,dailyLogs.get(i).getWeight());
             values[i] = v;
         }
         return values;
@@ -162,6 +182,7 @@ public class Graphs extends ActionBarActivity {
         int vCount = 0;
         DataPoint [] values =  new DataPoint [points];
         List<DailyLog> logs = (dailyLogs.subList(0, end));
+
         for(int i = 0; i<logs.size(); i+=7){
             double weight =logs.get(i).getWeight();
             int yVal = ((int) weight);
