@@ -34,14 +34,6 @@ public class DailyLog extends SugarRecord<DailyLog> {
         }
     }
 
-    public void saveOrUpdate() {
-        List<DailyLog> dailyLogs = DailyLog.find(DailyLog.class, "date = ?", this.date);
-        if (dailyLogs.size() > 0) {
-            this.setId(dailyLogs.get(0).getId());
-        }
-        this.save();
-    }
-
     public Boolean getWorkout() {
         return workout;
     }
