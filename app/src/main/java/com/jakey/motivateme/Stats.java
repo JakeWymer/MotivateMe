@@ -24,6 +24,7 @@ public class Stats extends NavActivity {
         ArrayList<DailyLog> dailyLogs = (ArrayList<DailyLog>) DailyLog.listAll(DailyLog.class);
         ListView myList = (ListView) findViewById(com.jakey.motivateme.R.id.listView_log);
         myList.setAdapter(new StatsAdapter(this, dailyLogs));
+
     }
 
     public class StatsAdapter extends ArrayAdapter<DailyLog> {

@@ -3,6 +3,7 @@ package com.jakey.motivateme.models;
 import com.orm.SugarRecord;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -41,6 +42,7 @@ public class DailyLog extends SugarRecord<DailyLog> {
         }
         this.save();
     }
+
 
     public Boolean getWorkout() {
         return workout;

@@ -3,10 +3,15 @@ package com.jakey.motivateme;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v4.view.GestureDetectorCompat;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
-public class NavActivity extends Activity {
+public class NavActivity extends Activity{
+
+
 
     @Override
     protected void onStart() {
@@ -55,5 +60,7 @@ public class NavActivity extends Activity {
                 overridePendingTransition(0, 0);
             }
         });
+
     }
+
 }
