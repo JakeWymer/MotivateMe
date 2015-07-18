@@ -98,8 +98,13 @@ public class Main extends NavActivity {
         String dietTxt = radioButtonDiet == null ? null : (String) radioButtonDiet.getText();
         String weightString = weightEditText.getText().toString();
         Integer weight = weightString.equals("") ? null : Integer.parseInt(weightString);
-        dailyLog = new DailyLog(weight, dietTxt, workoutToggle.isChecked());
-        dailyLog.saveOrUpdate();
+        if (dailyLog == null) {
+            dailyLog = new DailyLog();
+        }
+        dailyLog.setWeight(weight);
+        dailyLog.setDiet(dietTxt);
+        dailyLog.setWorkout(workoutToggle.isChecked());
+        dailyLog.save();
     }
 
     public void toSettings(View view){
