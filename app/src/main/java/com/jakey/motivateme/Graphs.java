@@ -160,8 +160,6 @@ public class Graphs extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
     private DataPoint[] getWeight1(){
         DataPoint [] values =  new DataPoint [dailyLogs.size()];
 
