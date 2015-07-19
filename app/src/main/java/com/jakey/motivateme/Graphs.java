@@ -165,8 +165,16 @@ public class Graphs extends ActionBarActivity {
     private DataPoint[] getWeight1(){
         DataPoint [] values =  new DataPoint [dailyLogs.size()];
 
+        int prevWeight = 0;
         for(int i=0;i<dailyLogs.size(); i++){
-            DataPoint v = new DataPoint(i+1,dailyLogs.get(i).getWeight());
+            DailyLog log = dailyLogs.get(i);
+            Integer weight = log.getWeight();
+            if (weight == null) {
+                weight = prevWeight;
+            } else {
+                prevWeight = weight;
+            }
+            DataPoint v = new DataPoint(i+1,weight);
             values[i] = v;
         }
         return values;
@@ -236,7 +244,9 @@ public class Graphs extends ActionBarActivity {
         for(int i = 0; i<logs.size(); i+=7){
             double hCount = 0;
             for(int j = 0; j<7; j++){
-                if(logs.get(i+j).getWorkout().equals(true)){
+                DailyLog log = logs.get(i+j);
+                Boolean workout = log.getWorkout();
+                if(workout != null && workout){
                     hCount++;
                 }
 

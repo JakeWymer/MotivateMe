@@ -20,7 +20,7 @@
 
         <activity
             android:name=".Dashboard"
-            android:label="@string/title_activity_main" >
+            android:label="@string/title_activity_dashboard" >
         </activity>
         <activity
             android:name=".Events"
