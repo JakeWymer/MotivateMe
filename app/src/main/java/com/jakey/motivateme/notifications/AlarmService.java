@@ -13,8 +13,9 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.NotificationCompat;
 import android.view.View;
 
-import com.jakey.motivateme.Main;
+import com.jakey.motivateme.Dashboard;
 import com.jakey.motivateme.UserSettings;
+import com.jakey.motivateme.Dashboard;
 
 public class AlarmService extends Service {
 
@@ -23,32 +24,30 @@ public class AlarmService extends Service {
 
     public void onStart(Intent intent, int startId)
     {
+        if (intent != null) {
+            Bundle extras = intent.getExtras();
 
-        Bundle extras = intent.getExtras();
+            mManager = (NotificationManager) this.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
-        mManager = (NotificationManager) this.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            Intent intent1 = new Intent(this.getApplicationContext(), Dashboard.class);
 
-        Intent intent1 = new Intent(this.getApplicationContext(),Main.class);
+            Notification notification = new Notification.Builder(getApplicationContext())
+                    .setContentText(intent.getStringExtra("MyMessage"))
+                    .setSmallIcon(com.jakey.motivateme.R.drawable.ic_launcher)
+                    .setWhen(System.currentTimeMillis())
+                    .setContentTitle("MotivateMe")
+                    .setVibrate(new long[]{1000, 1000, 1000})
+                    .build();
 
-        Notification notification = new Notification.Builder(getApplicationContext())
-                .setContentText(intent.getStringExtra("MyMessage"))
-                .setSmallIcon(com.jakey.motivateme.R.drawable.ic_launcher)
-                .setWhen(System.currentTimeMillis())
-                .setContentTitle("MotivateMe")
-                .setVibrate(new long [] {1000,1000,1000})
-                .build();
+            intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            PendingIntent pendingNotificationIntent = PendingIntent.getActivity( this.getApplicationContext(),0, intent1,PendingIntent.FLAG_UPDATE_CURRENT);
 
-        PendingIntent pendingNotificationIntent = PendingIntent.getActivity(this.getApplicationContext(),
-                                                                            0,
-                                                                            intent1,
-                                                                            PendingIntent.FLAG_UPDATE_CURRENT);
+            notification.flags |= Notification.FLAG_AUTO_CANCEL;
+            notification.setLatestEventInfo(getApplicationContext(), "MotivateMe", intent.getStringExtra("MyMessage"), pendingNotificationIntent);
 
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        notification.setLatestEventInfo(getApplicationContext(), "MotivateMe", intent.getStringExtra("MyMessage"), pendingNotificationIntent);
-
-        mManager.notify(extras.getInt("UID"), notification);
+            mManager.notify(extras.getInt("UID"), notification);
+        }
 
     }
 

@@ -22,7 +22,7 @@ public class NavActivity extends Activity{
         Button btnGoals = (Button) findViewById(R.id.btnGoals);
         Button btnSelected = null;
 
-        if (this instanceof Main) {
+        if (this instanceof Dashboard) {
             btnSelected = btnToday;
         } else if (this instanceof Stats) {
             btnSelected = btnHistory;
@@ -37,7 +37,7 @@ public class NavActivity extends Activity{
         btnToday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mainActivity = new Intent(view.getContext(), Main.class);
+                Intent mainActivity = new Intent(view.getContext(), Dashboard.class);
                 startActivity(mainActivity);
                 overridePendingTransition(0, 0);
             }

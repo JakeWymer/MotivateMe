@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.jakey.motivateme.R;
 import com.jakey.motivateme.models.DailyLog;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
@@ -16,7 +15,6 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Graphs extends ActionBarActivity {
@@ -257,7 +255,7 @@ public class Graphs extends ActionBarActivity {
 
     public void toMain(View view){
 
-        Intent i = new Intent(this, Main.class);
+        Intent i = new Intent(this, Dashboard.class);
         startActivity(i);
     }
 }

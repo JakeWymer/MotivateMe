@@ -34,6 +34,10 @@ public class DailyLog extends SugarRecord<DailyLog> {
         }
     }
 
+    public static DailyLog today() {
+        return DailyLog.findByDate(new Date());
+    }
+
     public Boolean getWorkout() {
         return workout;
     }

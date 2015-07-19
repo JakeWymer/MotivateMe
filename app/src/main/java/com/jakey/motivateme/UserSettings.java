@@ -66,7 +66,7 @@ public class UserSettings extends ActionBarActivity {
     }
 
     public void toMain(View view){
-        Intent i = new Intent(this, Main.class);
+        Intent i = new Intent(this, Dashboard.class);
         startActivity(i);
     }
 

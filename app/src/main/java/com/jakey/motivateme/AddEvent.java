@@ -45,10 +45,7 @@ public class AddEvent extends Activity {
             }
 
         }
-
     }
-
-
 
     public void saveEvent(View v) {
         String eventName = eventNameInput.getText() == null ? null : eventNameInput.getText().toString();
@@ -64,5 +61,4 @@ public class AddEvent extends Activity {
         Intent goals = new Intent(this, Events.class);
         startActivity(goals);
     }
-
 }

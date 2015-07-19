@@ -38,7 +38,7 @@ public class Main extends NavActivity {
         super.onCreate(savedInstanceState);
         setContentView(com.jakey.motivateme.R.layout.activity_main);
 
-            alarmHelper();
+        alarmHelper();
 
         weightEditText = (EditText) findViewById(R.id.weightinput);
         dietRadioGroup = (RadioGroup) findViewById(R.id.radioGroupDiet);
