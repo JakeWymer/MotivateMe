@@ -51,7 +51,8 @@ public class Stats extends NavActivity {
             String weight = log.getWeight() == null ? "" : log.getWeight() + " lbs.";
             weightTV.setText(weight);
             dietTV.setText(log.getDiet());
-            workoutTV.setText(log.getWorkout() ? "Yes" : "No");
+
+            workoutTV.setText(log.getWorkout() != null && log.getWorkout() ? "Yes" : "No");
 
             return convertView;
         }

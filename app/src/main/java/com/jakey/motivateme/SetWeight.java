@@ -54,7 +54,7 @@ public class SetWeight extends ActionBarActivity {
         weightMinute = timePick.getCurrentMinute();
 
         
-        Intent i = new Intent(this, Main.class);
+        Intent i = new Intent(this, Dashboard.class);
         startActivity(i);
     }
 
