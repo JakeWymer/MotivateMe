@@ -57,6 +57,7 @@ public class setDiet extends ActionBarActivity {
         dietHour = timePick.getCurrentHour();
         dietMinute = timePick.getCurrentMinute();
 
+
         Intent i = new Intent(this, Main.class);
         startActivity(i);
     }

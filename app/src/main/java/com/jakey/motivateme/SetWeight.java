@@ -53,15 +53,9 @@ public class SetWeight extends ActionBarActivity {
         weightHour = timePick.getCurrentHour();
         weightMinute = timePick.getCurrentMinute();
 
+        
         Intent i = new Intent(this, Main.class);
         startActivity(i);
     }
 
-    public static int getWeightHour() {
-        return weightHour;
-    }
-
-    public static int getWeightMinute() {
-        return weightMinute;
-    }
 }

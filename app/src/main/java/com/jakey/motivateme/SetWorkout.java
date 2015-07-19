@@ -50,6 +50,7 @@ public class SetWorkout extends ActionBarActivity {
         workoutHour = timePick.getCurrentHour();
         workoutMinute = timePick.getCurrentMinute();
 
+
         Intent i = new Intent(this, Main.class);
         startActivity(i);
     }

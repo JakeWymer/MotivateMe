@@ -6,7 +6,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -36,9 +38,7 @@ public class Main extends NavActivity {
         super.onCreate(savedInstanceState);
         setContentView(com.jakey.motivateme.R.layout.activity_main);
 
-        dietAlarm();
-        weightAlarm();
-        workoutAlarm();
+            alarmHelper();
 
         weightEditText = (EditText) findViewById(R.id.weightinput);
         dietRadioGroup = (RadioGroup) findViewById(R.id.radioGroupDiet);
@@ -114,6 +114,12 @@ public class Main extends NavActivity {
     }
 
 
+    public void alarmHelper(){
+        dietAlarm();
+        weightAlarm();
+        workoutAlarm();
+    }
+
     public void dietAlarm(){
 
         PendingIntent dietPendingIntent;
@@ -141,7 +147,7 @@ public class Main extends NavActivity {
                     AlarmManager.INTERVAL_DAY, dietPendingIntent);
         }
         else{
-            calendar.set(Calendar.DAY_OF_MONTH, Calendar.DAY_OF_MONTH+1);
+            calendar.add(Calendar.DATE, 1);
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     AlarmManager.INTERVAL_DAY, dietPendingIntent);
         }
@@ -177,7 +183,7 @@ public class Main extends NavActivity {
                     AlarmManager.INTERVAL_DAY, weightPendingIntent);
         }
         else{
-            calendar.set(Calendar.DAY_OF_MONTH, Calendar.DAY_OF_MONTH+1);
+            calendar.add(Calendar.DATE, 1);
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     AlarmManager.INTERVAL_DAY, weightPendingIntent);
         }
@@ -195,7 +201,7 @@ public class Main extends NavActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, SetWorkout.workoutHour);
         calendar.set(Calendar.MINUTE, SetWorkout.workoutMinute);
-
+        calendar.set(Calendar.MILLISECOND, 0);
         Intent workoutIntent = new Intent(this, AlarmReceiver.class);
 
 
@@ -213,7 +219,7 @@ public class Main extends NavActivity {
                     AlarmManager.INTERVAL_DAY, workoutPendingIntent);
         }
         else{
-            calendar.set(Calendar.DAY_OF_MONTH, Calendar.DAY_OF_MONTH+1);
+            calendar.add(Calendar.DATE, 1);
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     AlarmManager.INTERVAL_DAY, workoutPendingIntent);
         }
